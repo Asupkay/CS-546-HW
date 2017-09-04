@@ -132,11 +132,60 @@ console.log("In the fullstring 'Helllllllo, class!' there were " + occurencesOfS
 //--------------------------------------------------------------------------//
 
 function randomizeSentences (paragraph) {
-    let sentences = paragraph.split("." || "?" || "!");
-    console.log(sentences);
+    let sentences = [];
+    let sentence = "";
+    paragraph = " " + paragraph
+    
+    for(let cLetter = 0; cLetter < paragraph.length; cLetter++) {
+        sentence = sentence + paragraph[cLetter];
+        if(paragraph[cLetter] == ".") {
+            sentences.push(sentence);
+            sentence = "";
+        } else if(paragraph[cLetter] == "?") {
+            sentences.push(sentence);
+            sentence = "";
+        } else if(paragraph[cLetter] == "!") {
+            sentences.push(sentence);
+            sentence = "";
+        }
+    }
+    
+    sentences = mixSentences(sentences);
+    
+    let mSentence = sentences.join("");
+    if(mSentence.charAt(0) === ' ') {
+        mSentence = mSentence.substr(1);
+    }
+    return mSentence;
+}
+
+function mixSentences(sentences) {
+    let cSentence = sentences.length;
+    let tempHolder;
+    let randomSentence;
+
+    // While there remain elements to shuffle...
+    while (cSentence !== 0) {
+
+        // Pick a remaining element...
+        randomSentence = Math.floor(Math.random() * cSentence);
+        cSentence -= 1;
+
+        // And swap it with the current element.
+        tempHolder = sentences[cSentence];
+        sentences[cSentence] = sentences[randomSentence];
+        sentences[randomSentence] = tempHolder;
+    }
+
+    return sentences;
 }
 
 console.log ("------------------------------------------------------");
 console.log ("|            Function randomizeSentences             |");
 console.log ("------------------------------------------------------");
-randomizeSentences("a? b. c!");
+console.log("Randomization of sentence 'a? b. c!': '" + randomizeSentences("a? b. c!") + "'");
+console.log("Randomization of sentence 'a? b. c!': '" + randomizeSentences("a? b. c!") + "'");
+
+var paragraph = "Hello, world! I am a paragraph. You can tell that I am a paragraph because there are multiple sentences that are split up by punctuation marks. Grammar can be funny, so I will only put in paragraphs with periods, exclamation marks, and question marks -- no quotations.";
+
+console.log("Randomization of sentence '" + paragraph + "': \n" + randomizeSentences(paragraph));
