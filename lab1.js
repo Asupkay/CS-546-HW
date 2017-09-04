@@ -25,6 +25,7 @@ function sumOfSquares(num1, num2, num3) {
     }
 }
 
+
 console.log ("------------------------------------------------------");
 console.log ("|            Function sumOfSquares                   |");
 console.log ("------------------------------------------------------");
@@ -91,3 +92,44 @@ console.log ("------------------------------------------------------");
 console.log ("|            Function cupsOfCoffee                   |");
 console.log ("------------------------------------------------------");
 console.log(cupsOfCoffee(5));
+
+//--------------------------------------------------------------------------//
+// Function: occurrencesOfSubstring                                         //
+// Parameters: fullString, substring                                        //
+// Description: calculate how many times a substring occurs in a            //
+// given string.                                                            //
+// Example: occurrencesOfSubstring("hello world", "o"); should return 2     //
+// occurrencesOfSubstring("Helllllllo, class!", "ll"); should return 6      //
+//--------------------------------------------------------------------------//
+
+function occurencesOfSubstring (fullString, substring) {
+    let occurences = 0;
+    for(let cLetter = 0; cLetter < fullString.length && cLetter + substring.length <= fullString.length; cLetter++) {
+        let matches = true
+        for(let chLetter = cLetter; chLetter - cLetter < substring.length && matches == true; chLetter++) {
+            if(fullString[chLetter] != substring[chLetter-cLetter]) {
+                matches = false;
+            }    
+        }
+        if(matches == true) {
+            occurences++;
+        }
+    }
+    return occurences;
+}
+
+console.log ("------------------------------------------------------");
+console.log ("|            Function occurencesOfSubstring          |");
+console.log ("------------------------------------------------------");
+console.log("In the fullstring 'hello world' there were " + occurencesOfSubstring("hello world","o") + " occurences of 'o'.");
+console.log("In the fullstring 'Helllllllo, class!' there were " + occurencesOfSubstring("Helllllllo, class!", "ll") + " occurences of substring 'll'"); 
+//--------------------------------------------------------------------------//
+// Function: randomizeSentences                                             //
+// Parameters: paragraph                                                    //
+// Description: take in a paragraph and randomize the sentences in it.      //
+// Example: randomizeSentences("a? b. c!") = "b. a? c!"                     //
+//--------------------------------------------------------------------------//
+
+console.log ("------------------------------------------------------");
+console.log ("|            Function randomizeSentences             |");
+console.log ("------------------------------------------------------");
