@@ -122,7 +122,8 @@ console.log ("------------------------------------------------------");
 console.log ("|            Function occurencesOfSubstring          |");
 console.log ("------------------------------------------------------");
 console.log("In the fullstring 'hello world' there were " + occurencesOfSubstring("hello world","o") + " occurences of 'o'.");
-console.log("In the fullstring 'Helllllllo, class!' there were " + occurencesOfSubstring("Helllllllo, class!", "ll") + " occurences of substring 'll'"); 
+console.log("In the fullstring 'Helllllllo, class!' there were " + occurencesOfSubstring("Helllllllo, class!", "ll") + " occurences of substring 'll'");
+ 
 //--------------------------------------------------------------------------//
 // Function: randomizeSentences                                             //
 // Parameters: paragraph                                                    //
@@ -130,6 +131,12 @@ console.log("In the fullstring 'Helllllllo, class!' there were " + occurencesOfS
 // Example: randomizeSentences("a? b. c!") = "b. a? c!"                     //
 //--------------------------------------------------------------------------//
 
+function randomizeSentences (paragraph) {
+    let sentences = paragraph.split("." || "?" || "!");
+    console.log(sentences);
+}
+
 console.log ("------------------------------------------------------");
 console.log ("|            Function randomizeSentences             |");
 console.log ("------------------------------------------------------");
+randomizeSentences("a? b. c!");
