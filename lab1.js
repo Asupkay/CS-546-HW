@@ -42,9 +42,10 @@ console.log("sumOfSquares of 7, 5, and 4: " + sumOfSquares(7, 5, 4));
 console.log("sumOfSquares of 9, 7, and 2: " + sumOfSquares(9, 7, 2));
 console.log("sumOfSquares of .4, .9, and 1.5: " + sumOfSquares(.4, .9, 1.5));
 console.log("sumOfSquares of -1, -3, and 5: " + sumOfSquares(-1, -3, 5));
-//sumOfSquares(1);
-//sumOfSquares(1,2,3,4);
-//sumOfSquares("1","2","3");
+//Stuff that should throw:
+//sumOfSquares(1); not enough arguments
+//sumOfSquares(1,2,3,4); too many arguments
+//sumOfSquares("1","2","3"); strings
 
 //--------------------------------------------------------------------------//
 // Function: sayHelloTo                                                     //
@@ -94,12 +95,13 @@ function sayHelloTo (firstName, lastName, title) {
 console.log ("------------------------------------------------------");
 console.log ("|             Function sayHelloTo                    |");
 console.log ("------------------------------------------------------");
-//sayHelloTo();
-//sayHelloTo("1");
 sayHelloTo("Phil");
 sayHelloTo("Phil", "Barresi");
 sayHelloTo("Phil", "Barresi", "Mr.");
-//sayHelloTo("1", "2", "3", "4");
+//Stuff that should throw:
+//sayHelloTo("1", "2", "3", "4"); Too many arguments
+//sayHelloTo("1"); Numbers do not exist in names
+//sayHelloTo(); not enough arguments
 
 //--------------------------------------------------------------------------//
 // Function: cupsOfCoffee                                                   //
@@ -139,11 +141,12 @@ console.log ("------------------------------------------------------");
 console.log(cupsOfCoffee(5));
 console.log("---------------------------------");
 console.log(cupsOfCoffee(1));
-//console.log(cupsOfCoffee(0));
-//console.log(cupsOfCoffee(-3));
-//console.log(cupsOfCoffee(5.5));
-//console.log(cupsOfCoffee("5"));
-//console.log(cupsOfCoffee("nice"));
+//Stuff that should throw:
+//console.log(cupsOfCoffee(0)); no song for 0 cups
+//console.log(cupsOfCoffee(-3)); negative
+//console.log(cupsOfCoffee(5.5)); decimal
+//console.log(cupsOfCoffee("5")); string
+//console.log(cupsOfCoffee("nice")); string
 
 //--------------------------------------------------------------------------//
 // Function: occurrencesOfSubstring                                         //
@@ -196,8 +199,9 @@ console.log("In the fullstring 'hello world' there were " + occurencesOfSubstrin
 console.log("In the fullstring 'Helllllllo, class!' there were " + occurencesOfSubstring("Helllllllo, class!", "ll") + " occurences of substring 'll'");
 console.log("In the fullstring 'nice job' there were " + occurencesOfSubstring("nice job", "z") + " occurences of substring 'z'");
 console.log("In the fullstring '54321' there were " + occurencesOfSubstring("54321", "1") + " occurences of substring '1'");
-//occurencesOfSubstring(1,2);
-//console.log(occurencesOfSubstring("1","1","3"));
+//Stuff that should throw
+//occurencesOfSubstring(1,2); numbers
+//console.log(occurencesOfSubstring("1","1","3")); too many arguments
  
 //--------------------------------------------------------------------------//
 // Function: randomizeSentences                                             //
@@ -291,6 +295,7 @@ var paragraph = "Hello, world! I am a paragraph. You can tell that I am a paragr
 
 console.log("Randomization of sentence '" + paragraph + "': \n" + randomizeSentences(paragraph));
 console.log("Randomization of sentence 'A': " + randomizeSentences("A"));
-//randomizeSentences("A","B");
-//randomizeSentences(5);
-//console.log(randomizeSentences('').length);
+//Stuff that should throw
+//randomizeSentences("A","B"); Too many arguments
+//randomizeSentences(5); numbers
+//console.log(randomizeSentences('').length); empty? shouldn't really throw just does nothing
