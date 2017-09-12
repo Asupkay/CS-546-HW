@@ -1,3 +1,4 @@
+//index.js
 //*-------------------------------------------------------*
 //| Name: index.js                                        |
 //| Description: print 10 triangles, 10 squares, and 10   |
