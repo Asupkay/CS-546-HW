@@ -26,7 +26,7 @@ for(let triangleSize = 1; triangleSize <= 10; triangleSize++) {
 console.log("-------------------------------");
 console.log("|           Square            |");
 console.log("-------------------------------");
-for(let squareSize = 1; squareSize <= 10; squareSize++) { 
+for(let squareSize = 2; squareSize <= 11; squareSize++) { 
     console.log(`--Square of Size ${squareSize}--`);
     shapePrinter.square(squareSize);
 }
@@ -35,7 +35,7 @@ for(let squareSize = 1; squareSize <= 10; squareSize++) {
 console.log("-------------------------------");
 console.log("|           Rhombus           |");
 console.log("-------------------------------");
-for(let rhombusSize = 1; rhombusSize <= 10; rhombusSize++) {
+for(let rhombusSize = 2; rhombusSize <= 20; rhombusSize = rhombusSize + 2) {
     console.log(`--Rhombus of Size ${rhombusSize}--`);
-    //shapePrinter.rhombus(rhombusSize);
+    shapePrinter.rhombus(rhombusSize);
 }

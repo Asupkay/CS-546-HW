@@ -41,8 +41,8 @@ module.exports = {
     },
     square: function(lines) {
         //Check that the input is valid
-        if(!(lines > 2) && lines !== 'number') {
-            throw "Input must be a number more than 2";
+        if(!(lines > 1) && lines !== 'number') {
+            throw "Input must be a number more than 1";
         }
         //String for holding the constructed string
         square = "";
@@ -67,6 +67,35 @@ module.exports = {
         console.log(square);
     },
     rhombus: function(lines) {
-        console.log(lines);
+        rhombus = ""  
+        for(let topHalfRow = 0; topHalfRow < lines/2; topHalfRow++) {
+            for(let cspace = lines/2 - (topHalfRow + 1); cspace > 0; cspace--) {
+                rhombus += " ";
+            }
+            rhombus += '/';   
+            if(topHalfRow == 0) {
+                rhombus += '-';
+            } else {
+                for(let spaces = 0; spaces < topHalfRow * 2 + 1; spaces++) {
+                    rhombus += ' ';
+                } 
+            }
+            rhombus += '\\\n'; 
+        }
+        for(let lowerHalfRow = (lines/2) - 1; lowerHalfRow >= 0; lowerHalfRow--) {
+            for(let cspace = lines/2 - (lowerHalfRow + 1); cspace > 0; cspace--) {
+                rhombus += " ";
+            }
+            rhombus += '\\';
+            if(lowerHalfRow == 0) {
+                rhombus += '-';
+            } else {
+                for(let spaces = 0; spaces < lowerHalfRow * 2 + 1; spaces++) {
+                    rhombus += ' ';
+                }
+            }
+            rhombus += '/\n';
+        }
+        console.log(rhombus);
     }
 };
