@@ -10,7 +10,7 @@
 module.exports = {
     triangle: function(lines) {
         //Check that the input is valid
-        if(!(lines > 0) && lines !== 'number') {
+        if(!(lines > 0) || typeof lines !== 'number') {
             throw "Input must be a number more than 0";
         }
         //This will be the variable where the string is construted
@@ -41,7 +41,7 @@ module.exports = {
     },
     square: function(lines) {
         //Check that the input is valid
-        if(!(lines > 1) && lines !== 'number') {
+        if(!(lines > 1) || typeof lines !== 'number') {
             throw "Input must be a number more than 1";
         }
         //String for holding the constructed string
@@ -67,12 +67,21 @@ module.exports = {
         console.log(square);
     },
     rhombus: function(lines) {
+        //Check that the input is valid (even, more than one, and a number)
+        if(!(lines > 1) || lines%2 != 0 || typeof lines !== 'number') {
+            throw "Input must be a number more than 1 and divisable by 2";
+        }
+        //String for holding the constructed string
         rhombus = ""  
+        //Construct the top half of the rhombus
         for(let topHalfRow = 0; topHalfRow < lines/2; topHalfRow++) {
+            //Create the spaces needed for lining up
             for(let cspace = lines/2 - (topHalfRow + 1); cspace > 0; cspace--) {
                 rhombus += " ";
             }
+            //Open the rhombus
             rhombus += '/';   
+            //If it is the first row put a - if not put the proper amount of spaces
             if(topHalfRow == 0) {
                 rhombus += '-';
             } else {
@@ -80,13 +89,18 @@ module.exports = {
                     rhombus += ' ';
                 } 
             }
+            //Close the row of the rhombus and new line
             rhombus += '\\\n'; 
         }
+        //Construct the bottom half of the rhombus
         for(let lowerHalfRow = (lines/2) - 1; lowerHalfRow >= 0; lowerHalfRow--) {
+            //Buffer spaces
             for(let cspace = lines/2 - (lowerHalfRow + 1); cspace > 0; cspace--) {
                 rhombus += " ";
             }
+            //Open rhombus
             rhombus += '\\';
+            //if it is the last row use - if not use space
             if(lowerHalfRow == 0) {
                 rhombus += '-';
             } else {
@@ -94,6 +108,7 @@ module.exports = {
                     rhombus += ' ';
                 }
             }
+            //Close row
             rhombus += '/\n';
         }
         console.log(rhombus);
