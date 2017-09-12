@@ -9,15 +9,21 @@
 
 module.exports = {
     triangle: function(lines) {
+        //Check that the input is valid
         if(!(lines > 0) && lines !== 'number') {
             throw "Input must be a number more than 1";
         }
+        //This will be the variable where the string is construted
         triangle = "";
+        //Go for every row
         for(let row = 0; row < lines; row++) {
+            //Add coushining spaces so that the lines line up
             for(let cspace = lines - row; cspace > 0; cspace--) {
                 triangle += " ";
             }
+            //This is the start slash
             triangle += "/";
+            //Check if it is the last row if it is use - if not use spaces
             if(row == lines-1) {
                 for(let spaces = row*2; spaces > 0; spaces--) {
                     triangle += "-";
@@ -27,8 +33,10 @@ module.exports = {
                     triangle += " ";
                 }
             }
+            //Close the triangle and add a new line
             triangle += "\\\n";
         }
+        //print the triangle
         console.log(triangle);
     },
     square: function(lines) {
