@@ -40,7 +40,21 @@ module.exports = {
         console.log(triangle);
     },
     square: function(lines) {
-        console.log(lines);
+        square = "";
+        for(let row = 0; row < lines; row++) {
+            square += "|";
+            if(row == 0 || row == lines-1) {
+                for(let column = 0; column < lines; column++) {
+                    square += '-';
+                }
+            } else {
+                for(let column = 0; column < lines; column++) {
+                    square += ' ';
+                }
+            }
+            square += "|\n";
+        }
+        console.log(square);
     },
     rhombus: function(lines) {
         console.log(lines);

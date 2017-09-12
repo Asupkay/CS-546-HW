@@ -28,7 +28,7 @@ console.log("|           Square            |");
 console.log("-------------------------------");
 for(let squareSize = 1; squareSize <= 10; squareSize++) { 
     console.log(`--Square of Size ${squareSize}--`);
-    //shapePrinter.square(squareSize);
+    shapePrinter.square(squareSize);
 }
 
 //Print rhombuses ranging from 1 to 10
