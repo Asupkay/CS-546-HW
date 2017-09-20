@@ -5,39 +5,42 @@ const fs = bluebird.promisifyAll(require("fs"));
 module.exports.getFileAsString = async function getFileAsString(path) {
     if(!path) throw "You must provide a path";
     
-    fs.readFileAsync(path, "utf8").then((contents) => {
-        return contents;
-    }).catch((error) => {
-        console.error(e.stack);
-    });
+    try { 
+        let content = await fs.readFileAsync(path, "utf8");
+        return content;
+    } catch (error) {
+        throw error;
+    }
 }
 
 module.exports.getFileAsJSON = async function getFileAsJSON(path) {
     if(!path) throw "You must provide a path";
-    
-    fs.readFileAsync(path, "utf8").then((contents) => {
-        return JSON.parse(contents);
-    }).catch((error) => {
-        console.error(error.stack);
-    });
+    try { 
+        let content = await fs.readFileAsync(path, "utf8");
+        return content;
+    } catch (error) {
+        throw error;
+    }
 }
 
 module.exports.saveStringToFile = async function saveStringToFile(path, text) {
     if(!path || !text) throw "You must provide a path and text";
 
-    fs.writeFile(path, text).then(() => {
+    try {
+        await fs.writeFile(path, text);
         return true;
-    }).catch((error) => {
-        console.error(error.stack);
-    });
+    } catch (error) {
+        throw error;
+    }
 }
 
 module.exports.saveJSONToFile = async function saveJSONToFile(path, obj) {
     if(!path || !obj) throw "You must provide a path and obj";
 
-    fs.writeFile(path, JSON.stringify(obj, null, 4)).then(() => {
+    try {
+        await fs.writeFile(path, JSON.stringify(obj, null, 4));
         return true;
-    }).catch((error) => {
-        console.error(error.stack);
-    });
+    } catch (error) {
+        throw error;
+    }
 }

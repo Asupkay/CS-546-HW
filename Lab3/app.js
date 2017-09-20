@@ -7,23 +7,27 @@ const fs = bluebird.promisifyAll(require("fs"));
 
 async function processFile(path) {
     let resultPath = path + ".result.json";
-    fs.accessAsync(path).then(() => {
-        //Some type of error running this even though no filE
-        fileData.getFileAsJSON(resultPath).then((contents) => {
-            console.log(contents);
-        });
+    fileData.getFileAsJSON(resultPath).then((contents) => {
+        console.log(contents);    
     }).catch((error) => {
-        fileData.getFileAsString(path).then((contents) => {
-            fileData.saveStringtoFile(path + ".debug.txt", textMetrics.simplify(contents)).then(() => {
+        console.log("test");
+        fileData.getFileAsString(path + ".txt").then((contents) => {
+            fileData.saveStringToFile(path + ".debug.txt", textMetrics.simplify(contents)).then(() => {
                 let textInfo = textMetrics.createMetrics(contents);
-                fileData.saveJSONtoFile(path + ".result.json", textInfo).then(() => {
+                fileData.saveJSONToFile(path + ".result.json", textInfo).then(() => {
                     console.log(textInfo);
+                }).catch((error) => {
+                    console.log("Error on saving JSON to file " + path + ".result.json");
                 });
+            }).catch((error) => {
+                    console.log("Error on saving String to file " + path + ".debug.txt");
             });
+        }).catch((error) => {
+                    console.log("Error on getting file as String " + path + ".txt");
         });
     });
 }
 
-processFile("chapter1.txt");
-processFile("chapter2.txt");
-processFile("chapter3.txt");
+processFile("chapter1");
+processFile("chapter2");
+processFile("chapter3");
