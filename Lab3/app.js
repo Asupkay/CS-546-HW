@@ -1,20 +1,15 @@
 const textMetrics = require("./textMetrics.js");
 const fileData = require("./fileData.js");
-const bluebird = require("bluebird");
-const Promise = bluebird.Promise;
-const fs = bluebird.promisifyAll(require("fs"));
-
 
 async function processFile(path) {
     let resultPath = path + ".result.json";
     fileData.getFileAsJSON(resultPath).then((contents) => {
         console.log(contents);    
     }).catch((error) => {
-        console.log("test");
         fileData.getFileAsString(path + ".txt").then((contents) => {
-            fileData.saveStringToFile(path + ".debug.txt", textMetrics.simplify(contents)).then(() => {
+            fileData.saveStringToFile(path + ".debug.txt", textMetrics.simplify(contents)).then((success) => {
                 let textInfo = textMetrics.createMetrics(contents);
-                fileData.saveJSONToFile(path + ".result.json", textInfo).then(() => {
+                fileData.saveJSONToFile(path + ".result.json", textInfo).then((success) => {
                     console.log(textInfo);
                 }).catch((error) => {
                     console.log("Error on saving JSON to file " + path + ".result.json");

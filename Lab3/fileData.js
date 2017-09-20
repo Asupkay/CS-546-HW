@@ -27,7 +27,7 @@ module.exports.saveStringToFile = async function saveStringToFile(path, text) {
     if(!path || !text) throw "You must provide a path and text";
 
     try {
-        await fs.writeFile(path, text);
+        await fs.writeFileAsync(path, text);
         return true;
     } catch (error) {
         throw error;
@@ -38,7 +38,7 @@ module.exports.saveJSONToFile = async function saveJSONToFile(path, obj) {
     if(!path || !obj) throw "You must provide a path and obj";
 
     try {
-        await fs.writeFile(path, JSON.stringify(obj, null, 4));
+        await fs.writeFileAsync(path, JSON.stringify(obj, null, 4));
         return true;
     } catch (error) {
         throw error;
