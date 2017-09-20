@@ -7,9 +7,9 @@ async function getFileAsString(path) {
     
     fs.readFileAsync(path, "utf8").then((contents) => {
         return contents;
-    }.catch((error) => {
+    }).catch((error) => {
         console.error(e.stack);
-    }
+    });
 }
 
 async function getFileAsJSON(path) {
@@ -17,27 +17,27 @@ async function getFileAsJSON(path) {
     
     fs.readFileAsync(path, "utf8").then((contents) => {
         return JSON.parse(contents);
-    }.catch((error) => {
+    }).catch((error) => {
         console.error(e.stack);
-    }
+    });
 }
 
 async function saveStringToFile(path, text) {
-    if(!path || !text) throw "You must provide a path and text"
+    if(!path || !text) throw "You must provide a path and text";
 
     fs.writeFile(path, text).then(() => {
         return true;
-    }.catch((error) => {
+    }).catch((error) => {
         console.error(e.stack);
-    }
+    });
 }
 
 async function saveJSONToFile(path, obj) {
-    if(!path || !obj) throw "You must provide a path and obj"
+    if(!path || !obj) throw "You must provide a path and obj";
 
     fs.writeFile(path, JSON.stringify(obj, null, 4)).then(() => {
         return true;
-    }.catch((error) => {
+    }).catch((error) => {
         console.error(e.stack);
-    }
+    });
 }
