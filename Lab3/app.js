@@ -1,4 +1,29 @@
-const textMetrics = require("./textMetrics");
-const fileData = require("./fileData");
+const textMetrics = require("./textMetrics.js");
+const fileData = require("./fileData.js");
+const bluebird = require("bluebird");
+const Promise = bluebird.Promise;
+const fs = bluebird.promisifyAll(require("fs"));
 
-console.log(textMetrics.createMetrics("Hello, my -! This is a great day to say hello.\n\n\tHello! 2 3 4 23"));
+
+async function processFile(path) {
+    let resultPath = path + ".result.json";
+    fs.accessAsync(path).then(() => {
+        //Some type of error running this even though no filE
+        fileData.getFileAsJSON(resultPath).then((contents) => {
+            console.log(contents);
+        });
+    }).catch((error) => {
+        fileData.getFileAsString(path).then((contents) => {
+            fileData.saveStringtoFile(path + ".debug.txt", textMetrics.simplify(contents)).then(() => {
+                let textInfo = textMetrics.createMetrics(contents);
+                fileData.saveJSONtoFile(path + ".result.json", textInfo).then(() => {
+                    console.log(textInfo);
+                });
+            });
+        });
+    });
+}
+
+processFile("chapter1.txt");
+processFile("chapter2.txt");
+processFile("chapter3.txt");
