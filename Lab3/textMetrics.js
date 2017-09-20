@@ -1,3 +1,12 @@
+/**----------------------------------------------------*
+/ Name: textMetrics.js                                 |
+/ Project: Lab3                                        |
+/ Author: Alex Supkay                                  |
+/ Pledge: I pledge my honor that I have abided by the  |
+/ Stevens Honor System                                 |
+/-----------------------------------------------------*/
+
+//Simplifies the text by putting it to lower case, removing any symbols, and turning any whitspace to one space
 module.exports.simplify = function (text) {
     let simplifiedText = text.toLowerCase();
     simplifiedText = simplifiedText.replace(/[^\s\w]/g, '');
@@ -6,6 +15,7 @@ module.exports.simplify = function (text) {
     return simplifiedText;
 };
 
+//Compiled together the metrics into a JSON object and returns it
 module.exports.createMetrics = function (text) {
     let simplifiedText = module.exports.simplify(text);
     let totalLetters = simplCountLetters(simplifiedText);
@@ -25,17 +35,20 @@ module.exports.createMetrics = function (text) {
     return textMetricObj;
 }
 
+//Count the letters by removing all white space and getting the length
 function simplCountLetters(simpleText) {
     simpleText = simpleText.replace(/\s/g, '');
     return simpleText.length;
 }
 
+//Get the word count by turning the words into an array and getting the length of that array
 function simplCountWords(simpleText) {
     let wordArray = arraySimpleText(simpleText);
     let amountOfWords = wordArray.length;
     return amountOfWords;
 }
 
+//Count the number of unique words by creating a dictionary and getting the length
 function simplCountUniqueWords(simpleText) {
     let wordArray = arraySimpleText(simpleText);   
     let wordDictionary = simplWordOccurrences(simpleText);
@@ -43,6 +56,7 @@ function simplCountUniqueWords(simpleText) {
     return Object.keys(wordDictionary).length; 
 }
 
+//Make an array and loop through it checking the length of each word
 function simplCountLongWords(simpleText) {
     let wordArray = arraySimpleText(simpleText);
     let wordCount = 0;
@@ -56,11 +70,13 @@ function simplCountLongWords(simpleText) {
     return wordCount;
 }
 
+//Divide the number of letter by the number of words
 function simplAverageWordLength(simpleText) {
     let avgLetters = simplCountLetters(simpleText)/simplCountWords(simpleText);
     return avgLetters;
 }
 
+//Create a dictionary of the words and add one anytime it shows up
 function simplWordOccurrences(simpleText) {
     let wordOccurences = { };
     let wordArray = arraySimpleText(simpleText);
@@ -71,6 +87,7 @@ function simplWordOccurrences(simpleText) {
     return wordOccurences;
 }
 
+//Create a simplified array where there are no empty entries
 function arraySimpleText(simpleText) {
     let wordArray = simpleText.split(' ');
     let amountOfWords = wordArray.length;    
