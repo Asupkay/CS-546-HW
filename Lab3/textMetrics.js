@@ -8,6 +8,8 @@
 
 //Simplifies the text by putting it to lower case, removing any symbols, and turning any whitspace to one space
 module.exports.simplify = function (text) {
+    if(!text || typeof text != 'string') throw "text for simplify must be a string and exist";
+
     let simplifiedText = text.toLowerCase();
     simplifiedText = simplifiedText.replace(/[^\s\w]/g, '');
     simplifiedText = simplifiedText.replace(/\s/g, ' ');
@@ -17,6 +19,8 @@ module.exports.simplify = function (text) {
 
 //Compiled together the metrics into a JSON object and returns it
 module.exports.createMetrics = function (text) {
+    if(!text || typeof text != 'string') throw "text for createMetrics must be a string and exist";
+
     let simplifiedText = module.exports.simplify(text);
     let totalLetters = simplCountLetters(simplifiedText);
     let totalWords = simplCountWords(simplifiedText);
