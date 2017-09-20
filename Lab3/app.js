@@ -1,6 +1,3 @@
-const bluebird = require("bluebird");
 const textMetrics = require("./textMetrics");
-const Promise = bluebird.Promise;
-const fs = bluebird.promisifyAll(require("fs"));
 
-console.log(textMetrics.createMetrics("te st!\n\t?.!\',\"\'"));
+console.log(textMetrics.createMetrics("Hello, my -! This is a great day to say hello.\n\n\tHello! 2 3 4 23"));
