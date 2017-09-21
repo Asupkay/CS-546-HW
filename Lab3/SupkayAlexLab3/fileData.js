@@ -45,7 +45,7 @@ module.exports.saveStringToFile = async function saveStringToFile(path, text) {
     }
 }
 
-//Save file as a JSON to file
+//SAve file as a string to file
 module.exports.saveJSONToFile = async function saveJSONToFile(path, obj) {
     if(!path || !obj || typeof path != 'string' || typeof obj != 'object') throw "You must provide a path and obj the path must be a string and the object must be a JSON object";
 
