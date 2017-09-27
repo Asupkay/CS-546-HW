@@ -1,17 +1,77 @@
+const mongoCollections = require("./mongoCollections.js")
+const uuidv4 = require('uuid/v4');
+const todoItems = mongoCollections.todoItems;
+
 module.exports = {
-    async function createTask(title, description) {
+    async createTask(title, description) {
+        if(!title || typeof title !== 'string') throw "You must provide a title";
+        if(!description || typeof description !== 'string') throw "You must provide a description";
 
+        let todoCollection = await todoItems();
+
+        let newTask = {
+            _id: uuidv4(),
+            title: title,
+            description: description,
+            completed: false,
+            completedAt: null
+        };
+
+        let insertionInfo = await todoCollection.insertOne(newTask);
+        if(insertionInfo.insertedCount === 0) throw "Could not create Task";
+
+        let newId = insertionInfo.insertedId;
+
+        let task = await this.getTask(newId);
+        
+        return task;
     },
-    async function getAllTasks() {
+    async getAllTasks() {
+        let todoCollection = await todoItems();
 
+        let tasks = await todoCollection.find({}).toArray();
+
+        return tasks;
     }, 
-    async function getTask(id) {
+    async getTask(id) {
+        if(!id) throw "You must provide an id to search for";
 
+        let todoCollection = await todoItems();
+        
+        let task = todoCollection.findOne({_id: id});
+        if(task === null) throw "No dog found with that id";
+
+        return task;  
     },
-    async function completeTask(taskId) {
+    async completeTask(taskId) {
+        if(!taskId) throw "You must provide a taskId";
 
+        let todoCollection = await todoItems();
+
+        let taskToUpdate = await this.getTask(taskId);
+        let updatedTask = {
+            _id: taskId,
+            title: taskToUpdate.title,
+            description: taskToUpdate.description,
+            completed: true,
+            completedAt: new Date()
+        }
+
+        let completeInfo = todoCollection.updateOne({_id: taskId}, updatedTask);
+        if(completeInfo.modifiedCount === 0) {
+            throw "could not update task successfully";
+        }
+
+        return await this.getTask(taskId);
     },
-    async function removeTask(id) {
+    async removeTask(id) {
+        if(!id) throw "You must provide an id to remove";
 
+        let taskCollection = await todoItems();
+        
+        let removeInfo = todoItems.removeOne({_id: id});
+        if(removeInfo.modifiedCount === 0) {
+            throw `Could not delete task with id of ${id}`;
+        }
     }
 }
