@@ -57,7 +57,7 @@ module.exports = {
             completedAt: new Date()
         }
 
-        let completeInfo = todoCollection.updateOne({_id: taskId}, updatedTask);
+        let completeInfo = await todoCollection.updateOne({_id: taskId}, updatedTask);
         if(completeInfo.modifiedCount === 0) {
             throw "could not update task successfully";
         }
@@ -70,10 +70,9 @@ module.exports = {
         let taskCollection = await todoItems();
         
         let removeInfo = await taskCollection.removeOne({_id: id});
-        if(removeInfo.modifiedCount === 0) {
+        if(removeInfo.deletedCount === 0) {
             throw `Could not delete task with id of ${id}`;
         }
-
         return true;
     }
 }

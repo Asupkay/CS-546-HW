@@ -25,25 +25,19 @@ async function main() {
         console.log("--------Complete Second Task--------");
         console.log(secondTask);
 
+        //Error checking
+        //let errorTask = await todoItems.createTask(null, null); checked with numbers and null
+        //let errorTask = await todoItems.getTask();
+        //let errorTask = await todoItems.getTask(12345);
+        //let errorTask = await todoItems.completeTask();
+        //let errorTask = await todoItems.completeTask(1234);
+        //let errorTask = await todoItems.removeTask();
+        //let errorTask = await todoItems.removeTask(1234);
+        
+
     } catch (error) {
         console.log(error);
     }
 }
 
 main();
-
-        /*console.log("Create first task ------------------");
-        let createdTask = await todoItems.createTask("My First Task", "This is the first thing I need to do today");
-        console.log(createdTask);
-
-        console.log("Create second task ------------------");
-        createdTask = await todoItems.createTask("My Second Task", "This is the Second thing I need to do today");
-        console.log(createdTask);
-
-        console.log("Get tasks ------------------");
-        let getTasks = await todoItems.getAllTasks();
-        console.log(getTasks);
-
-        console.log("Complete task ------------------");
-        let updateTask = await todoItems.completeTask(createdTask._id);
-        console.log(updateTask);*/
