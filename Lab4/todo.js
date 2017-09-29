@@ -38,7 +38,7 @@ module.exports = {
 
         let todoCollection = await todoItems();
         
-        let task = todoCollection.findOne({_id: id});
+        let task = await todoCollection.findOne({_id: id});
         if(task === null) throw "No dog found with that id";
 
         return task;  
@@ -69,7 +69,7 @@ module.exports = {
 
         let taskCollection = await todoItems();
         
-        let removeInfo = todoItems.removeOne({_id: id});
+        let removeInfo = await taskCollection.removeOne({_id: id});
         if(removeInfo.modifiedCount === 0) {
             throw `Could not delete task with id of ${id}`;
         }

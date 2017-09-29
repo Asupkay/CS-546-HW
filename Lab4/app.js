@@ -2,21 +2,27 @@ const todoItems = require("./todo");
 
 async function main() {
     try {
-        let firstTask = todoItems.createTask("Ponder Dinosaurs", "Has Anyone Really Been Far Even as Decided to Use Even Go Want to do Look More Like?");
-        console.log("Created First Task");
+        let firstTask = await todoItems.createTask("Ponder Dinosaurs", "Has Anyone Really Been Far Even as Decided to Use Even Go Want to do Look More Like?");
+        console.log("---------Created First Task---------");
         console.log(firstTask);
 
-        let secondTask = todoItems.createTasks("Play Pokemon with Twitch TV", "Should we revive Helix?");
+        let secondTask = await todoItems.createTask("Play Pokemon with Twitch TV", "Should we revive Helix?");
+        console.log("---------Created Second Task---------");
+        console.log(secondTask);
         
-        let allTasks = todoItems.getTasks();
+        let allTasks = await todoItems.getAllTasks();
+        console.log("---------Get All The Tasks---------");
         console.log(allTasks);
 
-        todoItems.removeTask(firstTask._id);
+        console.log("---------Remove First Task---------");
+        await todoItems.removeTask(firstTask._id);
 
-        allTasks = todoItems.getTasks();
+        allTasks = await todoItems.getAllTasks();
+        console.log("---------Get All The Tasks---------");
         console.log(allTasks);
 
-        secondTask = todoItems.completeTask(secondTask);
+        secondTask = await todoItems.completeTask(secondTask._id);
+        console.log("--------Complete Second Task--------");
         console.log(secondTask);
 
     } catch (error) {
