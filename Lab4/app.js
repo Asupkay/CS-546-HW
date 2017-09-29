@@ -2,25 +2,31 @@ const todoItems = require("./todo");
 
 async function main() {
     try {
+        //Create the first task and then print it
         let firstTask = await todoItems.createTask("Ponder Dinosaurs", "Has Anyone Really Been Far Even as Decided to Use Even Go Want to do Look More Like?");
         console.log("---------Created First Task---------");
         console.log(firstTask);
 
+        //Create the second task and then print it
         let secondTask = await todoItems.createTask("Play Pokemon with Twitch TV", "Should we revive Helix?");
         console.log("---------Created Second Task---------");
         console.log(secondTask);
         
+        //Print all the tasks
         let allTasks = await todoItems.getAllTasks();
         console.log("---------Get All The Tasks---------");
         console.log(allTasks);
 
+        //Remove the first task
         console.log("---------Remove First Task---------");
         await todoItems.removeTask(firstTask._id);
 
+        //Print all the tasks again
         allTasks = await todoItems.getAllTasks();
         console.log("---------Get All The Tasks---------");
         console.log(allTasks);
 
+        //Complete the second task then print it
         secondTask = await todoItems.completeTask(secondTask._id);
         console.log("--------Complete Second Task--------");
         console.log(secondTask);
