@@ -8,3 +8,16 @@
             * cupsOfCoffee(howManyCups)
             * occurrencesOfSubstring(fullString, substring)
             * randomizeSentences(paragraph)
+    2: lab2
+        files:
+            index.js
+                create 10 of each shape of different sizes
+            package.json
+                create the module
+            printShape.js
+                functions:
+                    triangle - make a triangle
+                    square - make a square
+                    rhombus - make a rhombus
+    3: lab3
+    4: lab4
