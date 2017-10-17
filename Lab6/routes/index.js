@@ -3,7 +3,7 @@ const educationRoutes = require("./education");
 const storyRoutes = require("./story");
 
 const constructorMethod = (app) => {
-    //app.use("/about", aboutRoutes);
+    app.use("/about", aboutRoutes);
     //app.use("/education", educationRoutes);
     //app.use("/story", storyRoutes);
 
