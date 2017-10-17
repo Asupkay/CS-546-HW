@@ -1,0 +1,15 @@
+{
+  "name": "cs-546-lab-2",
+  "version": "1.0.0",
+  "description": "Simple server that represent the same data that I create in lab 5 by sending JSON down through API calls",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Alex Supkay",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
