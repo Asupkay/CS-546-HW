@@ -6,12 +6,12 @@ const exportedMethods {
     async getAllPosts() {
         recipeCollection = await recipes();
         return await recipeCollection.find({}).toArray();
-    }
+    },
     
     async getAllIDAndTitlePosts() {
         recipeCollection = await recipes();
         return await recipeCollection.find({}, {id: 1, title: 1}).toArray();
-    }
+    },
 
     async getPostByID (id) {
         if (!id) throw "No ID provided";
