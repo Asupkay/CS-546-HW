@@ -38,7 +38,6 @@ const exportedMethods = {
         if (!id) throw "No ID provided";
         let recipeCollection = await recipes();
         let recipe = await recipeCollection.findOne({_id: id});
-
         if (!recipe) throw "Recipe not found";
         return recipe;
     },
@@ -66,7 +65,7 @@ const exportedMethods = {
         return await this.getPostById(id);
     },
 
-    async deletePost(id) {
+    async removeRecipe(id) {
         if(!id) throw "No id provided";
         
         let recipeCollection = await recipes();
@@ -85,20 +84,19 @@ const exportedMethods = {
             let commentData = recipeComments[i];
             
             var recipeCommentFormat = {
-                _id: comment._id,
+                _id: commentData._id,
                 recipeId: id,
                 recipeTitle: recipe.title,
-                poster: comment.poster,
+                poster: commentData.poster,
                 comment: commentData.comment
             };
             
             recipeCommentsFormatted.push(recipeCommentFormat);
         } 
-        
         return recipeCommentsFormatted;
     },
 
-    async getComment(id) {
+    async getCommentByID(id) {
         if(!id) throw "No id provided";
 
         let recipes = await this.getAllRecipes();
@@ -138,7 +136,7 @@ const exportedMethods = {
         recipe.comments.push(newComment); 
         await recipeCollection.updateOne({_id: recipeID}, {$set: recipe});
         const newID = newComment._id;
-        return await this.getComment(newID);
+        return await this.getCommentByID(newID);
     },
 
     async updateComment(recipeID, commentID, poster, comment) {
@@ -170,7 +168,7 @@ const exportedMethods = {
 
     },
 
-    async deleteComment(id) {
+    async removeComment(id) {
         if(!id) throw "No id provided";
 
         let recipes = await this.getAllRecipes();
