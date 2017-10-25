@@ -1,0 +1,12 @@
+{
+  "name": "cs-546-lab-7",
+  "version": "0.0.1",
+  "description": "Routes for recipes posts for doing things with them",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Alex Supkay",
+  "license": "MIT"
+}
