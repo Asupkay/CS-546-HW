@@ -2,7 +2,7 @@ const mongoCollections = require("../config/mongoCollections");
 const recipes = mongoCollections.posts;
 const uuid = require("node-uuid");
 
-const exportedMethods {
+const exportedMethods = {
     async getAllRecipes() {
         let recipeCollection = await recipes();
         return await recipeCollection.find({}).toArray();
@@ -95,7 +95,7 @@ const exportedMethods {
         } 
         
         return recipeCommentsFormatted;
-    }
+    },
 
     async getComment(id) {
         if(!id) throw "No id provided";
@@ -109,8 +109,8 @@ const exportedMethods {
                 if(recipeComment.id == id) {
                     let recipeCommentFormat = {
                         _id: recipeComment.id,
-                        recipeId = recipes[i].id,
-                        recipeTitle = recipes[i].title,
+                        recipeId: recipes[i].id,
+                        recipeTitle: recipes[i].title,
                         poster: recipeComment.poster,
                         comment: recipeComment.comment
                     };
@@ -144,7 +144,7 @@ const exportedMethods {
         let recipe = getRecipeByID(recipeID);
         let recipeComments = recipe.comments;
 
-        for(int i = 0; i < recipeComments.length; i++) {
+        for(let i = 0; i < recipeComments.length; i++) {
             let comment = recipeComment[i];
             if(comment.id == commentID) {
                 if(typeof poster === "string") {
@@ -158,7 +158,7 @@ const exportedMethods {
         }
 
         let updatedRecipe = {
-            comments = recipe.comments;
+            comments: recipe.comments
         };
 
 
@@ -183,6 +183,6 @@ const exportedMethods {
             }
         }
     }
-}
+};
 
 module.exports = exportedMethods;

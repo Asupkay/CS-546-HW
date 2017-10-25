@@ -10,6 +10,9 @@
   "author": "Alex Supkay",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.2"
+    "data-parser": "^1.0.1",
+    "express": "^4.16.2",
+    "mongodb": "^2.2.33",
+    "node-uuid": "^1.4.8"
   }
 }
