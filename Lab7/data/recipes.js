@@ -1,5 +1,5 @@
 const mongoCollections = require("../config/mongoCollections");
-const recipes = mongoCollections.posts;
+const recipes = mongoCollections.recipes;
 const uuid = require("node-uuid");
 
 const exportedMethods = {
@@ -30,13 +30,14 @@ const exportedMethods = {
 
         const insertInformation = await recipeCollection.insertOne(newRecipe);
         const newID = insertInformation.insertedId;
-        return await this.getRecipeById(newID);
+        let recipe = await this.getRecipeByID(newID);
+        return await this.getRecipeByID(newID);
     },
 
     async getRecipeByID(id) {
         if (!id) throw "No ID provided";
         let recipeCollection = await recipes();
-        let recipe = await recipeCollection.find({_id: id});
+        let recipe = await recipeCollection.findOne({_id: id});
 
         if (!recipe) throw "Recipe not found";
         return recipe;
@@ -75,7 +76,7 @@ const exportedMethods = {
     async getAllCommentsOfRecipe(id) {
         if(!id) throw "No id provided";
 
-        let recipe = await getRecipeByID(id);
+        let recipe = await this.getRecipeByID(id);
         let recipeComments = recipe.comments;
 
         let recipeCommentsFormatted = [];
@@ -100,20 +101,21 @@ const exportedMethods = {
     async getComment(id) {
         if(!id) throw "No id provided";
 
-        let recipes = getAllRecipes();
+        let recipes = await this.getAllRecipes();
 
         for(let i = 0; i < recipes.length; i++) {
             let recipeComments = recipes[i].comments;
             for(let x = 0; x < recipeComments.length; x++) {
                 let recipeComment = recipeComments[x];
-                if(recipeComment.id == id) {
+                if(recipeComment._id == id) {
                     let recipeCommentFormat = {
-                        _id: recipeComment.id,
-                        recipeId: recipes[i].id,
+                        _id: recipeComment._id,
+                        recipeId: recipes[i]._id,
                         recipeTitle: recipes[i].title,
                         poster: recipeComment.poster,
                         comment: recipeComment.comment
                     };
+                    return recipeCommentFormat;
                 }
             }
         }
@@ -124,8 +126,8 @@ const exportedMethods = {
         if(typeof poster !== "string") throw "No poster provided";
         if(typeof comment !== "string") throw "No comment provided"; 
     
-        let recipeCollection = recipes();
-        let recipe = getRecipeByID(recipeID);
+        let recipeCollection = await recipes();
+        let recipe = await this.getRecipeByID(recipeID);
         
         let newComment = {
             _id: uuid.v4(),
@@ -134,19 +136,21 @@ const exportedMethods = {
         };
 
         recipe.comments.push(newComment); 
-        let insertInformation = await recipeCollection.updateOne({_id: recipeID}, {$set: recipe});
-        return await this.getComment(insertInformation.insertedId);
+        await recipeCollection.updateOne({_id: recipeID}, {$set: recipe});
+        const newID = newComment._id;
+        return await this.getComment(newID);
     },
 
     async updateComment(recipeID, commentID, poster, comment) {
-        if(!id) throw "No id provided";
+        if(!recipeID) throw "No recipeID provided";
+        if(!commentID) throw "No commentID provided";
 
-        let recipe = getRecipeByID(recipeID);
+        let recipe = await this.getRecipeByID(recipeID);
         let recipeComments = recipe.comments;
 
         for(let i = 0; i < recipeComments.length; i++) {
             let comment = recipeComment[i];
-            if(comment.id == commentID) {
+            if(comment._id == commentID) {
                 if(typeof poster === "string") {
                     recipe.comments[i].poster = poster;
                 }
@@ -169,16 +173,16 @@ const exportedMethods = {
     async deleteComment(id) {
         if(!id) throw "No id provided";
 
-        let recipes = getAllRecipes();
+        let recipes = await this.getAllRecipes();
 
         for(let i = 0; i < recipes.length; i++) {
             let recipe = recipes[i];
             let recipeComments = recipe.comments;
             for(let x = 0; x < recipeComments.length; x++) {
                 let recipeComment = recipeComments[x];
-                if(recipeComment.id == id) {
+                if(recipeComment._id == id) {
                     recipe.comments.splice(x, 1);
-                    await recipeCollection.update({_id: recipe.id}, {$set: recipe});
+                    await recipeCollection.update({_id: recipe._id}, {$set: recipe});
                 }
             }
         }
