@@ -3,13 +3,24 @@ const router = express.Router();
 const data = require("../data");
 const recipeData = data.recipes;
 
-router.get("/", async(req, res) => {
-    try {
-        const recipeList = await recipeData.getAllIDAndTitlePosts();
-        res.json(recipeList);
-    } catch (e) {
-        res.status(500).json({error: e});
-    }
+router.get("/recipe/:recipeId", async(req, res) => {
+
+});
+
+router.get("/:commentId", async(req, res) => {
+
+});
+
+router.post("/:recipeId", async(req, res) => {
+
+});
+
+router.put("/:recipeId/:commentId", async(req, res) => {
+
+});
+
+router.delete("/:id", async(req, res) => {
+
 });
 
 module.exports = router;
