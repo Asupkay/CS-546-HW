@@ -3,16 +3,19 @@ const recipes = mongoCollections.recipes;
 const uuid = require("node-uuid");
 
 const exportedMethods = {
+    //Gets all the recipes
     async getAllRecipes() {
         let recipeCollection = await recipes();
         return await recipeCollection.find({}).toArray();
     },
     
+    //Responds with a list of all recipes in the format of {_id: RECIPE_ID, title: RECIPE_TITLE}
     async getAllIDAndTitleRecipes() {
         let recipeCollection = await recipes();
         return await recipeCollection.find({}, {id: 1, title: 1}).toArray();
     },
     
+    //Creates a recipe with the supplied data in the request body, and returns the new recipe
     async createRecipe(title, ingredients, steps) {
         if(typeof title !== "string") throw "No title provided";
         if(!Array.isArray(ingredients)) throw "No ingredients provided";
@@ -34,6 +37,7 @@ const exportedMethods = {
         return await this.getRecipeByID(newID);
     },
 
+    //Responds with the full content of the specified recipe
     async getRecipeByID(id) {
         if (!id) throw "No ID provided";
         let recipeCollection = await recipes();
@@ -42,6 +46,7 @@ const exportedMethods = {
         return recipe;
     },
 
+    //Updates the specified recipe with only the supplied changes, and returns the updated recipe
     async updateRecipe(id, updatedRecipe) {
         if(!id) throw "No id provided";
         
@@ -64,6 +69,7 @@ const exportedMethods = {
         return await this.getRecipeByID(id);
     },
 
+    //Deletes the recipe
     async removeRecipe(id) {
         if(!id) throw "No id provided";
         
@@ -71,6 +77,8 @@ const exportedMethods = {
         recipeCollection.deleteOne({_id: id});
     },
 
+    //Returns a list of all comments in the specified recipe in the format of 
+    //{_id: COMMENT_ID, recipeId: RECIPE_ID, recipeTitle: RECIPE_TITLE, poster: COMMENT_NAME, comment: COMMENT}
     async getAllCommentsOfRecipe(id) {
         if(!id) throw "No id provided";
 
@@ -94,7 +102,9 @@ const exportedMethods = {
         } 
         return recipeCommentsFormatted;
     },
-
+    
+    // Returns the comment specified by that commentId in the format of 
+    // {_id: COMMENT_ID, recipeId: RECIPE_ID, reciipeTitle: RECIPE_TITLE, poster: COMMENT_NAME, comment: COMMENT}
     async getCommentByID(id) {
         if(!id) throw "No id provided";
 
@@ -119,6 +129,7 @@ const exportedMethods = {
         throw "Comment not found";
     },
 
+    //Creates a new comment with the supplied data in the request body for the stated recipe, and returns the new comment
     async postComment(recipeID, poster, comment) {
         if(typeof poster !== "string") throw "No poster provided";
         if(typeof comment !== "string") throw "No comment provided"; 
@@ -138,6 +149,7 @@ const exportedMethods = {
         return await this.getCommentByID(newID);
     },
 
+    //Updates the specified comment for the stated recipe with only the supplied changes, and returns the updated comment
     async updateComment(recipeID, commentID, updatedCommentData) {
         if(!recipeID) throw "No recipeID provided";
         if(!commentID) throw "No commentID provided";
@@ -167,6 +179,7 @@ const exportedMethods = {
 
     },
 
+    //Deletes the comment specified
     async removeComment(id) {
         if(!id) throw "No id provided";
 
