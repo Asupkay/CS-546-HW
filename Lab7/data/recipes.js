@@ -17,9 +17,21 @@ const exportedMethods = {
     
     //Creates a recipe with the supplied data in the request body, and returns the new recipe
     async createRecipe(title, ingredients, steps) {
-        if(typeof title !== "string") throw "No title provided";
-        if(!Array.isArray(ingredients)) throw "No ingredients provided";
-        if(!Array.isArray(steps)) throw "No steps provided";    
+        if(typeof title !== "string") throw "No title provided or is not a string";
+        if(!Array.isArray(ingredients)) throw "No ingredients provided or is not an array";
+        if(!Array.isArray(steps)) throw "No steps provided or is not an array";    
+        
+        for(var currIngredient in ingredients) {
+            if(Object.keys(ingredients[currIngredient]).length !== 2 || typeof ingredients[currIngredient]['name'] !== "string" || typeof ingredients[currIngredient]['amount'] !== "string") {
+                throw "Improper layout for ingredients must be an array of objects containing name and amount";
+            }
+        }
+
+        for(var step in steps) {
+            if(typeof steps[step] !== "string") {
+                throw "Improper format for steps must be an array of strings";
+            }
+        }
 
         let recipeCollection = await recipes();
 
@@ -59,9 +71,13 @@ const exportedMethods = {
                 throw "Title must be a string";
             }
         }
-
         if(updatedRecipe.ingredients) {
             if(Array.isArray(updatedRecipe.ingredients)) {
+                for(var currIngredient in updatedRecipe.ingredients) {
+                    if(Object.keys(updatedRecipe.ingredients[currIngredient]).length !== 2 || typeof updatedRecipe.ingredients[currIngredient]['name'] !== "string" || typeof updatedRecipe.ingredients[currIngredient]['amount'] !== "string") {
+                        throw "Improper layout for ingredients must be an array of objects containing name and amount";
+                    }
+                }
                 updatedRecipeData.ingredients = updatedRecipe.ingredients;
             } else {
                 throw "Ingredients must be an array";
@@ -70,6 +86,11 @@ const exportedMethods = {
 
         if(updatedRecipe.steps) {
             if(Array.isArray(updatedRecipe.steps)) {
+                for(var step in updatedRecipe.steps) {
+                    if(typeof updatedRecipe.steps[step] !== "string") {
+                        throw "Improper format for steps must be an array of strings";
+                    }
+                }
                 updatedRecipeData.steps = updatedRecipe.steps;
             } else {
                 throw "Steps must be an array";
@@ -86,7 +107,12 @@ const exportedMethods = {
         if(!id) throw "No id provided";
         
         let recipeCollection = await recipes();
-        recipeCollection.deleteOne({_id: id});
+        let deletionInfo = recipeCollection.deleteOne({_id: id});
+        if(deletionInfo.deletedCount === 0) {
+            throw `Could not delete recipe with id of ${id}`;
+        } else {
+            return {deleted: "okay"};
+        }
     },
 
     //Returns a list of all comments in the specified recipe in the format of 
@@ -144,8 +170,8 @@ const exportedMethods = {
     //Creates a new comment with the supplied data in the request body for the stated recipe, and returns the new comment
     async postComment(recipeID, poster, comment) {
         if(!recipeID) throw "No recipeID provided";
-        if(typeof poster !== "string") throw "No poster provided";
-        if(typeof comment !== "string") throw "No comment provided"; 
+        if(typeof poster !== "string") throw "No poster provided or is not a string";
+        if(typeof comment !== "string") throw "No comment provided or is not a string"; 
     
         let recipeCollection = await recipes();
         let recipe = await this.getRecipeByID(recipeID);
@@ -205,10 +231,11 @@ const exportedMethods = {
     async removeComment(id) {
         if(!id) throw "No id provided";
 
-        let recipes = await this.getAllRecipes();
+        let recipeCollection = await recipes();
+        let recipesData = await this.getAllRecipes();
 
-        for(let i = 0; i < recipes.length; i++) {
-            let recipe = recipes[i];
+        for(let i = 0; i < recipesData.length; i++) {
+            let recipe = recipesData[i];
             let recipeComments = recipe.comments;
             for(let x = 0; x < recipeComments.length; x++) {
                 let recipeComment = recipeComments[x];

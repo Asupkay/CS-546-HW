@@ -52,8 +52,8 @@ router.delete("/:id", async(req, res) => {
     try {
         await recipeData.getRecipeByID(req.params.id);
         try {
-            await recipeData.removeRecipe(req.params.id);
-            res.json({delete: "ok"});
+            let deletionInfo = await recipeData.removeRecipe(req.params.id);
+            res.json(deletionInfo);
         } catch (e) {
             res.status(500).json({ error: e });
         }

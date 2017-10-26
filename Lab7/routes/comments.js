@@ -67,7 +67,7 @@ router.delete("/:id", async(req, res) => {
         await recipeData.getCommentByID(req.params.id);
         try {
             await recipeData.removeComment(req.params.id);
-            res.json({delete: "ok"});
+            res.json({deleted: "okay"});
         } catch (e) {
             res.status(500).json({ error: e });
         }
