@@ -8,7 +8,7 @@ const exportedMethods = {
         return await recipeCollection.find({}).toArray();
     },
     
-    async getAllIDAndTitlePosts() {
+    async getAllIDAndTitleRecipes() {
         let recipeCollection = await recipes();
         return await recipeCollection.find({}, {id: 1, title: 1}).toArray();
     },
@@ -48,7 +48,7 @@ const exportedMethods = {
         let updatedRecipeData = {};
 
         if(updatedRecipe.title) {
-            updatedPostData.title = updatedPost.title;
+            updatedRecipeData.title = updatedRecipe.title;
         }
 
         if(updatedRecipe.ingredients) {
@@ -60,9 +60,8 @@ const exportedMethods = {
         }
 
         let recipeCollection = await recipes();
-        await recipeCollection.updateOne({_id: id}, {$set: updatedPostData});
-
-        return await this.getPostById(id);
+        await recipeCollection.updateOne({_id: id}, {$set: updatedRecipeData});
+        return await this.getRecipeByID(id);
     },
 
     async removeRecipe(id) {
@@ -133,28 +132,27 @@ const exportedMethods = {
             comment: comment
         };
 
-        recipe.comments.push(newComment); 
+        recipe.comments.push(newComment);
         await recipeCollection.updateOne({_id: recipeID}, {$set: recipe});
         const newID = newComment._id;
         return await this.getCommentByID(newID);
     },
 
-    async updateComment(recipeID, commentID, poster, comment) {
+    async updateComment(recipeID, commentID, updatedCommentData) {
         if(!recipeID) throw "No recipeID provided";
         if(!commentID) throw "No commentID provided";
 
+
         let recipe = await this.getRecipeByID(recipeID);
         let recipeComments = recipe.comments;
-
         for(let i = 0; i < recipeComments.length; i++) {
-            let comment = recipeComment[i];
+            let comment = recipeComments[i];
             if(comment._id == commentID) {
-                if(typeof poster === "string") {
-                    recipe.comments[i].poster = poster;
+                if(typeof updatedCommentData.poster === "string") {
+                    recipe.comments[i].poster = updatedCommentData.poster;
                 }
-                
-                if(typeof comment === "string") {
-                    recipe.comment[i].comment = comment;
+                if(typeof updatedCommentData.comment === "string") {
+                    recipe.comments[i].comment = updatedCommentData.comment;
                 }
             }
         }
@@ -162,9 +160,10 @@ const exportedMethods = {
         let updatedRecipe = {
             comments: recipe.comments
         };
-
-
-        let insertInformation = await recipeCollection.updateOne({_id: recipeID}, {$set: updateRecipe});
+        let recipeCollection = await recipes();
+        await recipeCollection.updateOne({_id: recipeID}, {$set: updatedRecipe});
+        let updatedComment = await this.getCommentByID(commentID);
+        return updatedComment;
 
     },
 

@@ -5,7 +5,7 @@ const recipeData = data.recipes;
 
 router.get("/", async(req, res) => {
     try {
-        const recipeList = await recipeData.getAllIDAndTitlePosts();
+        const recipeList = await recipeData.getAllIDAndTitleRecipes();
         res.json(recipeList);
     } catch (e) {
         res.status(500).json({error: e});
@@ -22,11 +22,30 @@ router.get("/:id", async(req, res) => {
 });
 
 router.post("/", async(req, res) => {
-    
+    const newRecipeData = req.body;
+ 
+    try {
+        let createdRecipe = await recipeData.createRecipe(newRecipeData.title, newRecipeData.ingredients, newRecipeData.steps);
+        res.json(createdRecipe);
+    } catch (e) {
+        res.status(500).json({error: e});
+    }
 });
 
-router.put("/", async(req, res) => {
-
+router.put("/:id", async(req, res) => {
+    try {
+        await recipeData.getRecipeByID(req.params.id);
+        try {
+            const newRecipeData = req.body;
+            
+            let updatedRecipe = await recipeData.updateRecipe(req.params.id, newRecipeData);
+            res.json(updatedRecipe);
+        } catch (e) {
+            res.status(500).json({error: e});
+        }
+    } catch (e) {
+        res.status(404).json({error: "Recipe not found"});
+    }
 });
 
 router.delete("/:id", async(req, res) => {
