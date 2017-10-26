@@ -53,7 +53,6 @@ const exportedMethods = {
         let updatedRecipeData = {};
         
         if(updatedRecipe.title) {
-            console.log(updatedRecipe.title);
             if(typeof updatedRecipe.title === "string") {
                 updatedRecipeData.title = updatedRecipe.title;
             } else {
