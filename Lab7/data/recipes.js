@@ -51,17 +51,30 @@ const exportedMethods = {
         if(!id) throw "No id provided";
         
         let updatedRecipeData = {};
-
+        
         if(updatedRecipe.title) {
-            updatedRecipeData.title = updatedRecipe.title;
+            console.log(updatedRecipe.title);
+            if(typeof updatedRecipe.title === "string") {
+                updatedRecipeData.title = updatedRecipe.title;
+            } else {
+                throw "Title must be a string";
+            }
         }
 
         if(updatedRecipe.ingredients) {
-            updatedRecipeData.ingredients = updatedRecipe.ingredients;
+            if(Array.isArray(updatedRecipe.ingredients)) {
+                updatedRecipeData.ingredients = updatedRecipe.ingredients;
+            } else {
+                throw "Ingredients must be an array";
+            }
         }
 
         if(updatedRecipe.steps) {
-            updatedRecipeData.steps = updatedRecipe.steps;
+            if(Array.isArray(updatedRecipe.steps)) {
+                updatedRecipeData.steps = updatedRecipe.steps;
+            } else {
+                throw "Steps must be an array";
+            }
         }
 
         let recipeCollection = await recipes();
@@ -131,6 +144,7 @@ const exportedMethods = {
 
     //Creates a new comment with the supplied data in the request body for the stated recipe, and returns the new comment
     async postComment(recipeID, poster, comment) {
+        if(!recipeID) throw "No recipeID provided";
         if(typeof poster !== "string") throw "No poster provided";
         if(typeof comment !== "string") throw "No comment provided"; 
     
@@ -160,11 +174,20 @@ const exportedMethods = {
         for(let i = 0; i < recipeComments.length; i++) {
             let comment = recipeComments[i];
             if(comment._id == commentID) {
-                if(typeof updatedCommentData.poster === "string") {
-                    recipe.comments[i].poster = updatedCommentData.poster;
+                if(updatedCommentData.poster) {
+                    if(typeof updatedCommentData.poster === "string") {
+                        recipe.comments[i].poster = updatedCommentData.poster;
+                    } else {
+                        throw "Poster must be a string";
+                    }
                 }
-                if(typeof updatedCommentData.comment === "string") {
-                    recipe.comments[i].comment = updatedCommentData.comment;
+    
+                if(updatedCommentData.comment) {
+                    if(typeof updatedCommentData.comment === "string") {
+                        recipe.comments[i].comment = updatedCommentData.comment;
+                    } else {
+                        throw "Comment must be a string";
+                    }
                 }
             }
         }
