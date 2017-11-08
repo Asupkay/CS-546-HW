@@ -1,0 +1,79 @@
+* {
+    margin: 0px;
+}
+
+header {
+    background-color: red;
+    text-align: center;
+    text-decoration: underline;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    padding: 10px;
+}
+
+.palindrome-actor {
+    background-color: white;
+}
+
+.palindrome-form {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.palindrome-form > h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.palindrome-input-form {
+    display: block;
+    margin-right: 10%;
+}
+
+.submit-button {
+    display: block;
+    margin-top: 10px;
+}
+
+.palindromes-checked {
+    background-color: green;
+    padding-bottom: 10px;
+}
+
+.palindromes-checked > h3 {
+    padding: 10px;
+}
+
+#palindrome-list {
+    background-color:yellow;
+    margin: 0px 10px;
+}
+
+.is-palindrome {
+    color: #0000FF;
+}
+
+.not-palindrome {
+    color: #FF0000;
+}
+
+.hidden {
+    display: none;
+}
+
+#error-box {
+    background-color: red;
+    border: 1px solid black;
+    border-radius: 5%;
+    color: white;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.fit-content {
+    display: inline-block;
+}

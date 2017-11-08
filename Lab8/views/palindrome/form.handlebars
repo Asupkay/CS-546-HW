@@ -1,0 +1,20 @@
+<article class="palindrome-actor">
+    <div class="palindrome-form">
+        <h2>Palindrome Checker</h2>
+        <form method="POST" id="palindrome-input-form">
+            <label for="palindrome-text">
+                Suspicious Palindrome:
+            </label>
+            <textarea id="palindrome-text" rows="1" placeholder="palindrome to be checked">{{phrase}}</textarea>
+            <button type="submit" class="submit-button">Check Palindrome</button>        
+        </form>
+        <div id="error-box" class="hidden">
+            <p id="error-text"></p>
+        </div>
+    </div>
+    <div class="palindromes-checked">
+        <h3>Checked Palindromes</h3>
+        <ul id="palindrome-list">
+        </ul>
+    </div>
+</article>
