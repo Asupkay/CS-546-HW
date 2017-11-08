@@ -18,13 +18,13 @@
     let errorContainer = document.getElementById("error-box");
     let errorText = document.getElementById("error-text"); 
     let palindromeListElement = document.getElementById("palindrome-list");
-    console.log(palindromeListElement);
 
     palindromeForm.addEventListener("submit", function(event) {
         event.preventDefault();
         try {
             errorContainer.classList.add("hidden");
             errorContainer.classList.remove("fit-content");
+
             let phraseValue = palindromeText.value;
             let result = checkPalindrome(phraseValue);        
             let li = document.createElement("li");
@@ -35,7 +35,6 @@
             } else {
                 li.setAttribute("class", "not-palindrome");
             }
-            console.log(li);
             palindromeListElement.appendChild(li);
             
         } catch (e) {
