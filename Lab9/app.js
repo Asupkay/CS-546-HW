@@ -24,7 +24,7 @@ passport.use(new LocalStrategy(
     function(username, password, done) {
         let user;
         try {
-            user = data.findUserByUsername(username);
+            user = data.users.getUserByUsername(username);
         } catch (e) {
             return done(null, false, {message: 'Incorrect username.'});
         }
@@ -40,11 +40,12 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser(function(user, done) {
-    done(null, user.id);
+    done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
-    let user = data.findUserById(id);
+    let user = data.users.getUserById(id);
+    if(!user) { return done("error"); }
     done(null, user);
 });
 

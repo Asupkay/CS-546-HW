@@ -31,16 +31,18 @@ const users = [
 module.exports = {
     getUserById: (id) => {
         for(user in users) {
-            if(user._id == id) {
-                return user;
+            let cUser = users[user];
+            if(cUser._id == id) {
+                return cUser;
             }
         }
         throw "user does not exist";
     },
     getUserByUsername: (username) => {
         for(user in users) {
-            if(user.username == username) {
-                return user;
+            let cUser = users[user];
+            if(cUser.username == username) {
+                return cUser;
             }
         }
         throw "User does not exist";
