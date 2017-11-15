@@ -2,6 +2,7 @@ const configRoutes = require("./routes");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const flash = require('connect-flash');
 const data = require("./data");
 const bcrypt = require('bcrypt-nodejs');
 
@@ -47,6 +48,7 @@ passport.deserializeUser(function(id, done) {
     done(null, user);
 });
 
+app.use(flash());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));

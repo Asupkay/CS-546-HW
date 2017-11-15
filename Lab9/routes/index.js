@@ -7,8 +7,14 @@ const constructorMethod = (app) => {
     app.use("/login", loginRoutes);
     app.use("/private", privateRoutes);
 
-    app.get("/", (req, res) => {
-        res.render("loginpage/login");
+    app.get("/", (req, res, info) => {
+        let loginError = req.flash();
+        if(loginError.error) {
+            loginError = loginError.error;
+        } else {
+            loginError = "";
+        }
+        res.render("loginpage/login", {error: loginError});
     });
 
     app.use("*", (req, res) => {
