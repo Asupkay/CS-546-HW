@@ -16,11 +16,11 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 var passport = require('passport')
-    , LocalStrategy = require('passport-local').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 
 passport.use(new LocalStrategy(
+    
     function(username, password, done) {
-
         let user;
         try {
             user = data.findUserByUsername(username);
