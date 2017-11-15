@@ -8,13 +8,17 @@ const constructorMethod = (app) => {
     app.use("/private", privateRoutes);
 
     app.get("/", (req, res, info) => {
-        let loginError = req.flash();
-        if(loginError.error) {
-            loginError = loginError.error;
+        if(req.user) {
+            res.redirect("/private");
         } else {
-            loginError = "";
+            let loginError = req.flash();
+            if(loginError.error) {
+                loginError = loginError.error;
+            } else {
+                loginError = "";
+            }
+            res.render("loginpage/login", {error: loginError});
         }
-        res.render("loginpage/login", {error: loginError});
     });
 
     app.use("*", (req, res) => {

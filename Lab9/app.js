@@ -21,10 +21,10 @@ var LocalStrategy = require('passport-local').Strategy;
 
 passport.use(new LocalStrategy(
     
-    function(username, password, done) {
+    async function(username, password, done) {
         let user;
         try {
-            user = data.users.getUserByUsername(username);
+            user = await data.users.getUserByUsername(username);
         } catch (e) {
             return done(null, false, {message: 'Incorrect username.'});
         }
@@ -43,8 +43,8 @@ passport.serializeUser(function(user, done) {
     done(null, user._id);
 });
 
-passport.deserializeUser(function(id, done) {
-    let user = data.users.getUserById(id);
+passport.deserializeUser(async function(id, done) {
+    let user = await data.users.getUserById(id);
     if(!user) { return done("error"); }
     done(null, user);
 });

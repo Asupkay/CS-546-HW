@@ -29,7 +29,7 @@ const users = [
 ]
 
 module.exports = {
-    getUserById: (id) => {
+    async getUserById(id) {
         for(user in users) {
             let cUser = users[user];
             if(cUser._id == id) {
@@ -38,7 +38,7 @@ module.exports = {
         }
         throw "user does not exist";
     },
-    getUserByUsername: (username) => {
+    async getUserByUsername(username) {
         for(user in users) {
             let cUser = users[user];
             if(cUser.username == username) {
